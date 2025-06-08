@@ -1,0 +1,22 @@
+# Ignore Python virtual environment
+.venv/
+__pycache__/
+*.pyc
+*.db
+*.log
+*.xml
+*.zip
+*.csv
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE settings
+.idea/
+.vscode/
+*.pyproj
+*.sublime-project
+
+# Ignore instance folder with SQLite DB
+/instance/

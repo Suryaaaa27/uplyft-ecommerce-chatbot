@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>E-commerce Chatbot</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0; padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+
+    /* Welcome Screen */
+    .welcome-screen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom right, #007bff, #00c6ff);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      z-index: 9999;
+      animation: fadeOut 3s forwards;
+    }
+
+    @keyframes fadeOut {
+      0% { opacity: 1; transform: translateY(0); }
+      90% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-20px); visibility: hidden; }
+    }
+
+    .logo {
+      font-size: 3em;
+      margin-bottom: 10px;
+      animation: bounceIn 1s ease;
+    }
+
+    @keyframes bounceIn {
+      0% { transform: scale(0.5); opacity: 0; }
+      60% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(1); }
+    }
+
+    .tagline {
+      font-size: 1.2em;
+      margin-bottom: 30px;
+      opacity: 0.9;
+    }
+
+    .chat-container {
+      width: 100%;
+      max-width: 600px;
+      height: 90vh;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .chat-header {
+      background: linear-gradient(to right, #007bff, #00c6ff);
+      color: white;
+      padding: 16px;
+      text-align: center;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+
+    .category-buttons {
+      display: flex;
+      justify-content: space-around;
+      padding: 10px;
+      background: #f1f1f1;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .category-buttons button {
+      background: none;
+      border: 1px solid #007bff;
+      color: #007bff;
+      padding: 6px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .category-buttons button:hover {
+      background: #007bff;
+      color: white;
+    }
+
+    #chat-box {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background-color: #fafafa;
+    }
+
+    .message {
+      padding: 12px 16px;
+      border-radius: 20px;
+      max-width: 75%;
+      line-height: 1.4;
+      word-wrap: break-word;
+      animation: fadeInUp 0.4s forwards;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .user {
+      align-self: flex-end;
+      background-color: #dcf8c6;
+    }
+
+    .bot {
+      align-self: flex-start;
+      background-color: #e5e5ea;
+      color: #333;
+    }
+
+    .timestamp {
+      font-size: 0.75em;
+      color: #888;
+      margin-top: 4px;
+    }
+
+    .typing-indicator {
+      align-self: flex-start;
+      font-size: 0.9em;
+      color: #666;
+      margin-left: 16px;
+      display: flex;
+      align-items: center;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      margin: 0 2px;
+      background-color: #666;
+      border-radius: 50%;
+      animation: bounce 1.4s infinite ease-in-out both;
+    }
+
+    .dot:nth-child(1) { animation-delay: -0.32s; }
+    .dot:nth-child(2) { animation-delay: -0.16s; }
+
+    @keyframes bounce {
+      0%, 80%, 100% { transform: scale(0); }
+      40% { transform: scale(1); }
+    }
+
+    .input-area {
+      display: flex;
+      border-top: 1px solid #ccc;
+      padding: 10px;
+      background: #fff;
+    }
+
+    #user-input {
+      flex: 1;
+      padding: 10px 15px;
+      font-size: 1em;
+      border: 1px solid #ddd;
+      outline: none;
+      border-radius: 20px;
+      transition: all 0.2s ease;
+    }
+
+    #user-input:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0,123,255,0.3);
+    }
+
+    #send-btn {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1em;
+      cursor: pointer;
+      border-radius: 20px;
+      margin-left: 10px;
+      transition: background 0.2s ease;
+    }
+
+    #send-btn:hover {
+      background: #0056b3;
+    }
+
+    .reset-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: transparent;
+      border: none;
+      font-size: 1.2em;
+      color: #999;
+      cursor: pointer;
+    }
+
+    .reset-btn:hover {
+      color: red;
+    }
+
+    .product-card {
+      background: white;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      margin-top: 5px;
+    }
+
+    .product-card strong {
+      color: #007bff;
+    }
+
+    .product-card span {
+      font-size: 0.9em;
+      color: #555;
+    }
+
+    @media (max-width: 600px) {
+      .product-card {
+        font-size: 0.9em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Welcome Screen -->
+<div class="welcome-screen">
+  <div class="logo">🛍️</div>
+  <div class="tagline">Welcome to Your E-commerce Chatbot</div>
+</div>
+
+<div class="chat-container">
+  <button class="reset-btn" onclick="resetChat()" title="Clear Chat">🗑️</button>
+  <div class="chat-header">🛍️ E-commerce Chatbot</div>
+
+  <div class="category-buttons">
+    <button onclick="filterByCategory('Electronics')">Electronics</button>
+    <button onclick="filterByCategory('Books')">Books</button>
+    <button onclick="filterByCategory('Textiles')">Textiles</button>
+  </div>
+
+  <div id="chat-box"></div>
+
+  <div class="input-area">
+    <input type="text" id="user-input" placeholder="Type your query..." autocomplete="off" autofocus />
+    <button id="send-btn" onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const chatBox = document.getElementById("chat-box");
+    const history = JSON.parse(localStorage.getItem("chatHistory")) || [];
+    history.forEach(msg => {
+      const div = document.createElement("div");
+      div.className = "message " + msg.type;
+      div.innerHTML = `<strong>${msg.sender}:</strong> ${msg.text}<br><span class="timestamp">${msg.time}</span>`;
+      chatBox.appendChild(div);
+    });
+    chatBox.scrollTop = chatBox.scrollHeight;
+  });
+
+  function getCurrentTime() {
+    const now = new Date();
+    return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+
+  function appendMessage(sender, text, type) {
+    const chatBox = document.getElementById("chat-box");
+    const time = getCurrentTime();
+
+    const div = document.createElement("div");
+    div.className = "message " + type;
+    div.innerHTML = `<strong>${sender}:</strong> ${text}<br><span class="timestamp">${time}</span>`;
+    chatBox.appendChild(div);
+
+    const history = JSON.parse(localStorage.getItem("chatHistory")) || [];
+    history.push({ sender, text, time, type });
+    localStorage.setItem("chatHistory", JSON.stringify(history));
+
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  function showTypingIndicator() {
+    const typingDiv = document.createElement("div");
+    typingDiv.className = "typing-indicator";
+    typingDiv.id = "typing";
+    typingDiv.innerHTML = `
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    `;
+    document.getElementById("chat-box").appendChild(typingDiv);
+  }
+
+  function hideTypingIndicator() {
+    const typingDiv = document.getElementById("typing");
+    if (typingDiv) typingDiv.remove();
+  }
+
+  function sendMessage() {
+    const input = document.getElementById("user-input");
+    const query = input.value.trim();
+    if (!query) return;
+
+    appendMessage("User", query, "user");
+    input.value = "";
+    showTypingIndicator();
+
+    fetch(`http://localhost:5000/api/products?q=${encodeURIComponent(query)}`)
+      .then(res => res.json())
+      .then(data => {
+        setTimeout(() => {
+          hideTypingIndicator();
+
+          let response = "";
+
+          if (Array.isArray(data) && data.length > 0) {
+            // 🎯 Smart natural language response
+            let matches = data.slice(0, 5);
+            response = `<strong>Found ${data.length} matching products:</strong><br>`;
+            matches.forEach(p => {
+              response += `
+                <div class="product-card">
+                  <strong>${p.name}</strong><br/>
+                  <span>₹${p.price} • ${p.category} • Stock: ${p.stock}</span>
+                </div>
+              `;
+            });
+          } else {
+            // ❓ Fallback message
+            response = getFallbackResponse(query);
+          }
+
+          appendMessage("Bot", response, "bot");
+        }, 600);
+      })
+      .catch(err => {
+        hideTypingIndicator();
+        console.error("Fetch error:", err);
+        appendMessage("Bot", "Error fetching product data.", "bot");
+      });
+  }
+
+  function filterByCategory(category) {
+    appendMessage("User", `show me ${category}`, "user");
+    showTypingIndicator();
+
+    fetch(`http://localhost:5000/api/products?category=${encodeURIComponent(category)}&q=`)
+      .then(res => res.json())
+      .then(data => {
+        setTimeout(() => {
+          hideTypingIndicator();
+
+          let response = "";
+
+          if (Array.isArray(data) && data.length > 0) {
+            response = `<strong>Here are some ${category} products:</strong><br>`;
+            data.slice(0, 5).forEach(p => {
+              response += `
+                <div class="product-card">
+                  <strong>${p.name}</strong><br/>
+                  <span>₹${p.price} • ${p.category} • Stock: ${p.stock}</span>
+                </div>
+              `;
+            });
+          } else {
+            response = `I couldn't find any ${category} products right now. Try again later!`;
+          }
+
+          appendMessage("Bot", response, "bot");
+        }, 600);
+      })
+      .catch(err => {
+        hideTypingIndicator();
+        console.error("Fetch error:", err);
+        appendMessage("Bot", "Error fetching product data.", "bot");
+      });
+  }
+
+  function resetChat() {
+    localStorage.removeItem("chatHistory");
+    document.getElementById("chat-box").innerHTML = "";
+  }
+
+  function getFallbackResponse(query) {
+    // 🔍 Return smart fallback message based on query
+    if (query.includes("book") || query.includes("books")) {
+      return "I couldn't find any books matching your search.";
+    } else if (query.includes("phone") || query.includes("smartphone")) {
+      return "No smartphones found. Try refining your search.";
+    } else if (query.includes("shoe") || query.includes("t-shirt") || query.includes("cloth")) {
+      return "Couldn't find what you're looking for in Textiles.";
+    } else if (query.includes("electronic") || query.includes("gadget")) {
+      return "No electronics matched your search.";
+    } else {
+      return "I couldn't find anything related to that. Try another query!";
+    }
+  }
+
+  // Press Enter to send message
+  document.getElementById("user-input").addEventListener("keypress", function(e) {
+    if (e.key === "Enter") {
+      sendMessage();
+    }
+  });
+  fetch(`/api/products?q=${encodeURIComponent(query)}`)
+  .then(res => res.json())
+  .then(data => {
+    let response = "";
+
+    if (Array.isArray(data) && data.length > 0) {
+      response = `<strong>Found ${data.length} matching products:</strong><br>`;
+      data.slice(0, 5).forEach(p => {
+        response += `
+          <div class="product-card">
+            <strong>${p.name}</strong><br/>
+            <span>₹${p.price} • ${p.category} • Stock: ${p.stock}</span>
+          </div>
+        `;
+      });
+    } else {
+      response = "No matching products found.";
+    }
+
+    appendMessage("Bot", response, "bot");
+  })
+  .catch(err => {
+    console.error("Fetch error:", err);
+    appendMessage("Bot", "Error fetching product data.", "bot");
+  });
+</script>
+
+</body>
+</html>
