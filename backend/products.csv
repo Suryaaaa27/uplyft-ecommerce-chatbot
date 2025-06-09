@@ -1,0 +1,106 @@
+id,name,description,price,category,stock
+1,Smartphone X,5G smartphone with 6.7-inch OLED display,899.99,Electronics,50
+2,Wireless Headphones,Noise-canceling Bluetooth headphones,129.99,Electronics,80
+3,Smartwatch Fitness Tracker,Tracks steps heart rate sleep,79.99,Electronics,120
+4,Wireless Charging Pad,Fast charging pad for smartphones,29.99,Electronics,200
+5,Bluetooth Speaker,Portable waterproof speaker with bass boost,49.99,Electronics,150
+6,Tablet Pro,10-inch screen 256GB storage stylus included,499.99,Electronics,60
+7,LED Smart TV,55-inch 4K UHD smart TV,699.99,Electronics,30
+8,Digital Camera,20MP DSLR camera with lens kit,599.99,Electronics,40
+9,External Hard Drive,1TB USB 3.0 portable hard drive,69.99,Electronics,100
+10,Gaming Mouse,Programmable RGB gaming mouse,39.99,Electronics,90
+11,The Art of War,Ancient Chinese military treatise by Sun Tzu,12.99,Books,200
+12,To Kill a Mockingbird,Classic American novel by Harper Lee,10.99,Books,150
+13,Atomic Habits,Transform Your Life with Small Changes,22.99,Books,180
+14,Homo Sapiens,A Brief History of Humankind,19.99,Books,170
+15,Think and Grow Rich,Napoleon Hill's classic on wealth creation,14.99,Books,210
+16,The Alchemist,Philosophical novel by Paulo Coelho,11.99,Books,190
+17,Harry Potter and the Sorcerer's Stone,First book in the iconic series,16.99,Books,160
+18,The Hobbit,Fantasy adventure by J.R.R. Tolkien,13.99,Books,140
+19,The Da Vinci Code,Mystery thriller by Dan Brown,15.99,Books,130
+20,1984,Dystopian novel by George Orwell,10.49,Books,220
+21,Cotton T-Shirt,Unisex solid color cotton T-shirt,19.99,Textiles,300
+22,Jeans - Slim Fit,Stretch denim jeans for men and women,39.99,Textiles,250
+23,Sweatshirt Hoodie,Comfortable hoodie with front pocket,29.99,Textiles,200
+24,Women's Skirt,A-line skirt made from soft fabric,24.99,Textiles,180
+25,Formal Men's Shirt,Business casual dress shirt,34.99,Textiles,150
+26,Winter Jacket,Thermal insulated jacket for cold weather,59.99,Textiles,100
+27,Sneakers - Running Shoes,Lightweight running shoes with cushioning,49.99,Textiles,220
+28,Women's Handbag,Stylish handbag with adjustable strap,39.99,Textiles,160
+29,Woolen Scarf,Warm scarf for winter wear,14.99,Textiles,200
+30,Sunglasses UV Protection,Stylish sunglasses with UV protection,24.99,Textiles,180
+31,Laptop Backpack,Water-resistant laptop backpack with USB port,34.99,Textiles,120
+32,Smart Home Assistant,Voice-controlled smart home device,59.99,Electronics,70
+33,Drone with 4K Camera,Remote-controlled drone with HD camera,499.99,Electronics,30
+34,Wireless Earbuds,Compact true wireless earbuds with mic,59.99,Electronics,150
+35,Smart Bulbs,Set of 2 voice-controlled LED smart bulbs,29.99,Electronics,250
+36,Electric Kettle,1.7L fast-boiling electric kettle,22.99,Electronics,180
+37,Blender,High-speed blender with multiple settings,39.99,Electronics,130
+38,Robot Vacuum Cleaner,Smart vacuum with app control,299.99,Electronics,40
+39,Home Security Camera,1080p Wi-Fi security camera,79.99,Electronics,90
+40,Smart Doorbell,Cam-enabled doorbell with motion detection,89.99,Electronics,60
+41,The Psychology of Money,Morgan Housel’s insights on wealth happiness and greed,19.99,Books,200
+42,How to Win Friends and Influence People,Dale Carnegie's timeless self-help classic,14.99,Books,210
+43,Deep Work,Focused strategies for productivity,21.99,Books,190
+44,The Lean Startup,Eric Ries' guide to building successful startups,18.99,Books,170
+45,Principles,Life and work principles by Ray Dalio,22.99,Books,160
+46,Sapiens,Yuval Noah Harari's exploration of human history,17.99,Books,180
+47,The Subtle Art of Not Giving a F*ck,Mark Manson's counterintuitive guide to living,16.99,Books,200
+48,Think Like a Monk,Raavin Mehta's guide to peace and purpose,15.99,Books,190
+49,Good Omens,Comedy fantasy novel by Neil Gaiman and Terry Pratchett,13.99,Books,180
+50,The Silent Patient,Psychological thriller by Alex Michaelides,12.99,Books,200
+51,Women's Yoga Pants,Stretchable leggings for workout or casual wear,29.99,Textiles,220
+52,Denim Jacket,Classic blue denim jacket for all seasons,44.99,Textiles,160
+53,Track Pants,Sporty track pants with elastic waistband,24.99,Textiles,200
+54,Sandals - Casual Footwear,Comfortable unisex outdoor sandals,29.99,Textiles,180
+55,Beanie Hat,Winter beanie hat in various colors,14.99,Textiles,250
+56,Winter Gloves,Thermal gloves for cold weather,19.99,Textiles,200
+57,Backpack for School,Spacious student-friendly backpack,29.99,Textiles,150
+58,Sunscreen Cap,UV-protective cap with built-in sunscreen layer,19.99,Textiles,170
+59,Shoes - Formal Men's,Oxfords leather formal shoes,59.99,Textiles,100
+60,Women's Dress,Elegant party or office wear dress,49.99,Textiles,120
+61,Smart Thermostat,Energy-efficient programmable thermostat,149.99,Electronics,50
+62,Smart Plug,Control devices remotely via app or voice,19.99,Electronics,200
+63,Smart Lights Dimmable,Adjust brightness and color temperature,24.99,Electronics,180
+64,Smart Speakers with Alexa,All-in-one smart assistant and speaker,89.99,Electronics,90
+65,Streaming Stick,4K streaming device with Alexa support,49.99,Electronics,150
+66,Smart Display,Touchscreen smart assistant with camera,129.99,Electronics,60
+67,Smart Lock,Keyless door lock with remote access,119.99,Electronics,70
+68,Security Camera Outdoor,Weatherproof HD security camera,99.99,Electronics,80
+69,Smart Light Strip,RGB light strip controllable via app,29.99,Electronics,170
+70,Smart Water Leak Detector,Alerts for water leaks in real-time,39.99,Electronics,100
+71,Start With Why,Simon Sinek's leadership and innovation book,16.99,Books,190
+72,Leaders Eat Last,On leadership and team-building,17.99,Books,180
+73,Man’s Search for Meaning,Victor Frankl's inspiring memoir,12.99,Books,210
+74,Outliers,Malcolm Gladwell on success and opportunity,14.99,Books,200
+75,The Power of Now,Eckhart Tolle’s spiritual guide,13.99,Books,190
+76,The Four Agreements,Don Miguel Ruiz’s guide to personal freedom,11.99,Books,220
+77,The Gifts of Imperfection,Brene Brown’s guide to wholehearted living,15.99,Books,200
+78,Atomic Habits Summary,Short summary version of the original,9.99,Books,230
+79,Who Moved My Cheese?,An allegory on change in life and work,10.99,Books,240
+80,The Power of Habit,Charles Duhigg on habit formation,16.49,Books,180
+81,Winter Boots,Waterproof boots for snow and rain,59.99,Textiles,120
+82,Windbreaker Jacket,Lightweight windproof jacket,39.99,Textiles,160
+83,Women's Leggings,High-waisted stretch leggings for fitness,29.99,Textiles,200
+84,Casual Shirts for Men,Breathable cotton shirts,24.99,Textiles,180
+85,Women's Sweater,Knit sweater for winter,34.99,Textiles,150
+86,Sports Shorts,Athletic shorts for running or gym,19.99,Textiles,210
+87,Sandals for Men,Open-toe casual sandals,22.99,Textiles,190
+88,Women's Blouse,Elegant blouse for office or parties,29.99,Textiles,160
+89,Formal Suit for Men,3-piece business suit,129.99,Textiles,80
+90,Women's Coat,Stylish long coat for winter,69.99,Textiles,90
+91,Smart Air Purifier,HEPA filter with air quality monitoring,199.99,Electronics,40
+92,Smart Coffee Maker,App-controlled coffee maker with timer,89.99,Electronics,70
+93,Smart Garden Sprinkler,System for automated lawn watering,129.99,Electronics,50
+94,Smart Garage Door Opener,Remote-controlled garage opener,149.99,Electronics,30
+95,Smart Smoke Detector,Connected smoke alarm with mobile alerts,49.99,Electronics,100
+96,Smart Outlet Timer,Timer-based smart plug for appliances,24.99,Electronics,180
+97,Smart Fish Tank Heater,Heater with automatic temperature control,39.99,Electronics,90
+98,Smart Pet Feeder,Remote-controlled pet feeding system,79.99,Electronics,60
+99,Smart Aquarium Lights,LED lights with color and brightness control,29.99,Electronics,110
+100,Smart Plant Sensor,Measures soil moisture light and temperature,34.99,Electronics,80
+101,The 4-Hour Workweek,Tim Ferriss’s guide to lifestyle design,15.99,Books,200
+102,Hooked,Build habit-forming products – Nir Eyal,16.99,Books,180
+103,Influence,Robert Cialdini’s psychology of persuasion,17.99,Books,170
+104,Zero to One,Peter Thiel on startups and innovation,14.99,Books,190
+105,Lean In,Sheryl Sandberg’s guide to women in leadership,13.99,Books,210
