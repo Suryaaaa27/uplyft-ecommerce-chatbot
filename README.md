@@ -48,7 +48,7 @@ uplyft-chatbot/
 
 🛠 Local Setup Instructions
 1. Clone the Repository
-   git clone https://github.com/your-username/uplyft-chatbot.git 
+   git clone https://github.com/Suryaaaa27/uplyft-chatbot.git 
    cd uplyft-chatbot
 2. Create and Activate Virtual Environment
    python -m venv .venv
