@@ -1,124 +1,121 @@
-🛒 E-commerce Chatbot – UplYft Case Study
-A simple yet effective e-commerce chatbot built using Flask (Python) and HTML/CSS/JavaScript , with mock product data from a CSV file. This chatbot allows users to search for products by name or category, and displays results dynamically in a conversational interface.
+This README includes:
+
+-Project overview
+-Folder structure
+-Setup instructions (local + deployment)
+-Technical documentation
+-Troubleshooting tips
+
+🛒 E-commerce Chatbot – UplYft Full Stack Intern Case Study
+A simple yet functional e-commerce chatbot built using Flask (Python) for backend and HTML/CSS/JavaScript for the frontend. This chatbot allows users to search for products by name or category and displays results in a conversational UI.
 
 🧾 Features
-
-✅ Responsive frontend UI
-💬 Product search via name or category
+✅ Product search via name or category
+💬 Chat-based interaction with typing indicator
 📱 Category buttons: Electronics, Books, Textiles
-⏰ Typing indicator and timestamps
-🗃️ Stores conversation history using localStorage
-🎯 Works entirely offline after setup
+⏰ Timestamps and localStorage support
+🔊 Optional voice command support (Web Speech API)
+🗃️ Works with or without SQLite database
+🌐 Deployed version works on Render/Railway
+📋 Clean project structure and detailed documentation
 
-🧰 Requirements
+🧰 Technology Stack Used
+Backend- Python Flask
+Frontend- HTML5, CSS3, Vanilla JavaScript
+Data Source- products.csv or optional SQLite (chatbot.db)
+Hosting- Render / Railway (via Gunicorn)
+API- RESTful /api/products?q=<query>&category=<category>
+Tools- Git, GitHub, Web Speech API
 
-Before you begin, ensure you have the following installed:
->Python
-3.10+
-
->Flask
-Latest
-
->SQLite (optional)
-For persistent database
-
->pip
-Included with Python
-
->git (optional)
-For version control
-
-🔁 You can skip the database part and run it purely from CSV if needed. 
-
-📦 Folder Structure
-Uplyft/
+📁 Folder Structure
+uplyft-chatbot/
+│
 ├── backend/
-│   ├── app.py                # Flask API server
-│   ├── database.py             # DB schema creation
-│   ├── seed_data.py            # Seeding script
-│   └── static/
-│       ├── index.html          # Chatbot UI
-│       └── style.css           # CSS styling (embedded in HTML)
+│   ├── app.py                # Flask server
+│   ├── static/
+│   │   └── index.html        # Chatbot UI
+│   ├── seed_data.py          # CSV → DB seeder
+│   └── database.py           # SQLite schema setup
 │
 ├── instance/
-│   └── chatbot.db              # Auto-generated SQLite DB (if using database)
+│   └── chatbot.db            # Auto-generated SQLite database (optional)
 │
-├── products.csv               # Mock product data (CSV)
-└── README.md                  # This file
-
-🛠️ Setup Instructions
-
-1. Clone or Download the Repository
-git clone https://github.com/your-username/uplyft-chatbot.git 
-cd uplyft-chatbot/backend
+├── products.csv              # Mock product data (100+ entries)
+├── requirements.txt          # Python dependencies
+├── Procfile                  # Deployment start command
+└── README.md                 # This file
 
 
+🛠 Local Setup Instructions
+1. Clone the Repository
+   git clone https://github.com/your-username/uplyft-chatbot.git 
+   cd uplyft-chatbot
 2. Create and Activate Virtual Environment
-python -m venv .venv
-.\.venv\Scripts\activate      # Windows
-source .venv/bin/activate     # Mac/Linux
-
-
+   python -m venv .venv
+   .\.venv\Scripts\activate     # Windows
+   source .venv/bin/activate     # Mac/Linux
 3. Install Dependencies
-pip install Flask flask-cors
-✅ No other dependencies are required if running without database (CSV-only mode) 
+   pip install -r requirements.txt
+   
+Requirements include: 
+Flask
+flask-cors
+gunicorn (for deployment)
 
+Set Up Database (Optional)
+If using SQLite:
 
+a. Create the database schema:
+   cd backend
+   python ../database.py
+b. Seed the database with mock data:
+   python ../seed_data.py
 
-🚀 Running the Chatbot
-Option A: With Database
-1. Initialize the Database Schema
-python database.py
+🚀 Run Locally
+From the backend/ folder:
+  python app.py
+Then visit:
+  http://localhost:5000/
 
-2. Seed the Database with Products
-python seed_data.py
+Try these queries:
 
-3. Start Flask Server
-python app.py
-
-4. Open in Browser
-http://localhost:5000/
-
-You’ll see the chatbot interface. Try typing:
-
-"books"
 "electronics"
-"t-shirts"
-The bot will respond with matching products from the database.
+"books"
+"smartphone"
+"t-shirt"
+You should see matching products returned from the database or CSV.
 
-Option B: Without Database (Direct CSV Reading)
-If you're facing issues with SQLite or want a simpler setup:
+🌐 Deploy on Render or Railway
+1. Push Code to GitHub
+2. Create a New Web Service on Render or Railway
+   
+Use this start command if deploying manually:
+cd backend && gunicorn app:app --bind :$PORT
 
-1. Update app.py to Read Directly from CSV
-Use this code snippet to replace the /api/products route:
+Or use a Procfile at root:
+web: cd backend && gunicorn app:app --bind :$PORT
 
-python
+Ensure requirements.txt contains:
+Flask==3.0.0
+flask-cors==4.0.0
+gunicorn==21.2.0
 
-import csv
 
-PRODUCTS = []
+🧪 Sample Queries You Can Try
+"show me electronics"
+Returns smartphones, headphones, etc.
+"books under 20 dollars"
+Matches books with price filtering
+"textiles"
+Shows t-shirts, cotton fabrics, etc.
+"cotton"
+Returns relevant textile products
+"smartphones"
+Matches electronics based on name/description
 
-def load_products():
-    global PRODUCTS
-    PRODUCTS.clear()
-    with open('static/products.csv', newline='', encoding='utf-8') as csvfile:
-        reader = csv.DictReader(csvfile)
-        for row in reader:
-            try:
-                product = {
-                    "id": int(row["id"]),
-                    "name": row["name"].strip().lower(),
-                    "description": row["description"].strip().lower(),
-                    "price": float(row["price"]),
-                    "category": row["category"].strip().lower(),
-                    "stock": int(row["stock"])
-                }
-                PRODUCTS.append(product)
-            except Exception as e:
-                print(f"⚠️ Skipping row due to error: {e}")
-    print(f"✅ Loaded {len(PRODUCTS)} products")
-
-@app.route('/api/products', methods=['GET'])
+🧑‍💻 Key Code Snippets
+✅ Flask API Endpoint (app.py)
+    @app.route('/api/products', methods=['GET'])
 def search_products():
     query = request.args.get('q', '').strip().lower()
     category = request.args.get('category', None)
@@ -126,48 +123,86 @@ def search_products():
     if not query and not category:
         return jsonify({"error": "Either 'q' or 'category' must be provided."}), 400
 
-    matches = []
-    for p in PRODUCTS:
-        if category and p['category'] == category.lower():
-            matches.append(p)
-        elif query and (query in p['name'] or query in p['description']):
-            matches.append(p)
+    try:
+        conn, cursor = get_db_connection()
 
-    return jsonify(matches)
+        sql_query = "SELECT * FROM products WHERE 1=1"
+        params = []
 
+        if query:
+            sql_query += " AND name LIKE ?"
+            params.append(f"%{query}%")
 
-2. Run Flask App
-cd backend
-python app.py
+        if category:
+            sql_query += " AND LOWER(category) = ?"
+            params.append(category.lower())
 
-3. Visit Chatbot
-http://localhost:5000/
+        cursor.execute(sql_query, params)
+        results = cursor.fetchall()
 
-Type queries like:
+        products = [
+            {
+                "id": r[0],
+                "name": r[1],
+                "description": r[2],
+                "price": r[3],
+                "category": r[4],
+                "stock": r[5]
+            }
+            for r in results
+        ]
 
-"books"
-"smartphones"
-"under 20 dollars" (if supported)
-And the bot will respond with matching products directly from the CSV.
+        conn.close()
+        return jsonify(products)
 
-🧪 Sample Queries
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
-"books": Returns books from the dataset
-"electronics": Shows electronics
-"cotton t-shirt": Matches specific product
-"show me under 100": Should return affordable items
+✅ Chatbot UI (static/index.html)
+Includes:
 
-🧑‍💻 Frontend Interaction
+Typing animation
+Product cards
+Category buttons
+Voice input support
 
-Type a message into the input box and click Send
-Or click on category buttons to filter products
-The chatbot will display results in styled cards
-Conversations are saved in localStorage across sessions
+🧩 How It Works
+User types or uses voice input.
+The bot calls /api/products?q=<query> or /api/products?category=<category>
+The backend returns JSON product data.
+Results are rendered as styled cards in the chat window.
 
-🧩 Technical Details
+Summary
+The UplYft E-commerce Chatbot was developed as part of the Full Stack Intern Case Study. The application allows users to search for products by name or category using either typed or voice-based input. It utilizes Python + Flask for the backend and vanilla HTML/CSS/JS for the frontend.
 
-Backend: Python + Flask
-Frontend: Vanilla JS + HTML + CSS
-Data Source: products.csv (100+ mock entries)
-Optional: SQLite database (chatbot.db) for persistent storage
+Objectives
+Build a working chatbot interface
+Enable product search functionality
+Allow filtering by category
+Implement voice input capability
+Ensure compatibility across local and online environments
 
+Challenges Faced
+Resolving path issues when serving static files and databases
+Handling case-insensitive product/category matching
+Ensuring Gunicorn compatibility on cloud platforms
+Fixing deployment errors related to missing packages
+
+How It Was Solved
+Used relative paths and environment variables for portability
+Added .lower() handling for better UX
+Used products.csv as fallback data source
+Created a Procfile for production-ready deployment
+
+🚀 Final Notes
+This project meets all UplYft Case Study requirements:
+
+✅ Working chatbot UI
+✅ Product search and filtering
+✅ Modern design and interaction
+✅ Clean documentation and setup steps
+
+Screenshots:
+![Screenshot 2025-06-08 204513](https://github.com/user-attachments/assets/2fd568a2-337c-47db-b935-b98d1803e649)
+![Screenshot 2025-06-08 204451](https://github.com/user-attachments/assets/33776108-ed0b-4280-8a17-46a2c898fc4f)
+![Screenshot 2025-06-08 204429](https://github.com/user-attachments/assets/726ca97a-81ef-44b6-bfd0-d8103ea08078)
