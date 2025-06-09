@@ -1,19 +1,35 @@
 from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
-import sqlite3
+import csv
 import os
 
 # Initialize Flask app
 app = Flask(__name__)
 CORS(app)
 
-# Define paths
-DB_PATH = os.path.join("instance", "chatbot.db")
+def load_products():
+    """
+    Load products from products.csv into memory.
+    """
+    products = []
+    try:
+        with open('products.csv', newline='', encoding='utf-8') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                product = {
+                    "id": int(row["id"]),
+                    "name": row["name"].strip().lower(),
+                    "description": row["description"].strip().lower(),
+                    "price": float(row["price"]),
+                    "category": row["category"].strip().lower(),
+                    "stock": int(row["stock"])
+                }
+                products.append(product)
+    except Exception as e:
+        print(f"Error loading products: {e}")
+    return products
 
-def get_db_connection():
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()
-    return conn, cursor
+PRODUCTS = load_products()
 
 @app.route('/')
 def home():
@@ -30,40 +46,14 @@ def search_products():
     if not query and not category:
         return jsonify({"error": "Either 'q' or 'category' must be provided."}), 400
 
-    try:
-        conn, cursor = get_db_connection()
+    results = []
 
-        sql_query = "SELECT * FROM products WHERE 1=1"
-        params = []
+    if query:
+        results = [p for p in PRODUCTS if query in p['name'] or query in p['description']]
+    elif category:
+        results = [p for p in PRODUCTS if p['category'] == category.lower()]
 
-        if query:
-            sql_query += " AND name LIKE ?"
-            params.append(f"%{query}%")
-
-        if category:
-            sql_query += " AND LOWER(category) = ?"
-            params.append(category.lower())
-
-        cursor.execute(sql_query, params)
-        results = cursor.fetchall()
-
-        products = [
-            {
-                "id": r[0],
-                "name": r[1],
-                "description": r[2],
-                "price": r[3],
-                "category": r[4],
-                "stock": r[5]
-            }
-            for r in results
-        ]
-
-        conn.close()
-        return jsonify(products)
-
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+    return jsonify(results)
 
 if __name__ == '__main__':
     import os
